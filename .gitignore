@@ -1,0 +1,43 @@
+# Boilerplate ignores from H5BP
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+_notes
+dwsync.xml
+*.komodoproject
+.komodotools
+*.esproj
+*.espressostorage
+*.rbc
+.hg
+.svn
+.CVS
+intermediate
+publish
+.idea
+build/buildinfo.properties
+build/config/buildinfo.properties
+
+# Docker Seed specific ignores
+docker-compose-dev.yml
+
+
+# Include your project-specific ignores below
+notes
