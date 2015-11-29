@@ -8,7 +8,7 @@ Install dependencies with NPM.
 
     npm install
 
-Add your configuration to `config.json`
+Add your configuration to `config.json`, then comment out or delete the lines of tasks you don't need to run in `gulpfile.js` and `gulp/tasks/watch.js`
 
 # Modules
 
@@ -22,6 +22,8 @@ Add your configuration to `config.json`
 `gulp/tasks/sass-compile.js` To be documented.
 ## Jade Convert
 `gulp/tasks/jade-convert.js` To be documented.
+## Less Compile
+`gulp/tasks/less-compile.js` To be documented.
 
 
 # TODO

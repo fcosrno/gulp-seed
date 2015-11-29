@@ -5,9 +5,14 @@ module.exports = function(gulp, plugins, config) {
             gulp.start('js-uglify');
         });
 
-        // Builds CSS
+        // Builds CSS from SASS
         plugins.watch(config.scssSrcPath + '/**/*.scss', function() {
             gulp.start('css-compile');
+        });
+
+        // Builds CSS from LESS
+        plugins.watch(config.lessSrcPath + '/**/*.less', function() {
+            gulp.start('less-compile');
         });
 
         // Converts Jade

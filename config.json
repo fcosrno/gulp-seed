@@ -1,11 +1,13 @@
 {
     "tasksPath": "./tasks",
     "scssSrcPath": "./src/scss",
+    "lessSrcPath": "./src/less",
     "jsSrcPath": "./src/js",
     "jadeSrcPath": "./src",
     "imgSrcPath": "./src/img",
     "cssDistPath": "./app/public",
     "jsDistPath": "./app/public",
+    "lessDistPath": "./app/public",
     "jadeDistPath": "./app/partials",
     "imgDistPath": "./app/img",
     "browserList": "> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1"

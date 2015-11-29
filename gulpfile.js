@@ -5,10 +5,13 @@ var plugins = require('gulp-load-plugins')();
 // JS Minification
 require(config.tasksPath + '/js-uglify')(gulp, plugins, config);
 
-// SASS Compliation
+// SASS Compilation
 require(config.tasksPath + '/sass-compile')(gulp, plugins, config);
 
-// Jade Compliation
+// LESS Compilation
+require(config.tasksPath + '/less-compile')(gulp, plugins, config);
+
+// Jade Convertion
 require(config.tasksPath + '/jade-convert')(gulp, plugins, config);
 
 // Image Optimization
