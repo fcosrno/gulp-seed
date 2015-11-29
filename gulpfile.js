@@ -8,6 +8,9 @@ require(config.tasksPath + '/js-uglify')(gulp, plugins, config);
 // SASS Compliation
 require(config.tasksPath + '/sass-compile')(gulp, plugins, config);
 
+// Jade Compliation
+require(config.tasksPath + '/jade-convert')(gulp, plugins, config);
+
 // Image Optimization
 require(config.tasksPath + '/image-minification')(gulp, plugins, config);
 

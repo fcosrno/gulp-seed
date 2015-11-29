@@ -12,14 +12,16 @@ Add your configuration to `config.json`
 
 # Modules
 
+## Watch
+`gulp/tasks/watch.js` To be documented.
 ## Image Minification
 `gulp/tasks/image-minification.js` To be documented.
 ## JS Uglify
 `gulp/tasks/js-uglify.js` To be documented.
 ## SASS Compile
 `gulp/tasks/sass-compile.js` To be documented.
-## Watch
-`gulp/tasks/watch.js` To be documented.
+## Jade Convert
+`gulp/tasks/jade-convert.js` To be documented.
 
 
 # TODO
