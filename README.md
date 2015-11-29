@@ -31,8 +31,8 @@ Add your configuration to `config.json`, then comment out or delete the lines of
 # TODO
 
 - Add docker task
+- Add [nodemon task](https://gist.github.com/fcosrno/71735ed85a8ce4e7b209)
 - View tutum angular example gulpfile for ideas
-- Add BrowserSync (view my Gist)
 
 # References
 
