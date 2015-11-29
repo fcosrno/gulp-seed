@@ -1,3 +1,4 @@
+var browserSync = require('browser-sync').create();
 module.exports = function(gulp, plugins, config) {
     gulp.task('watch', function() {
         // Builds JavaScript
@@ -24,5 +25,9 @@ module.exports = function(gulp, plugins, config) {
         plugins.watch([config.imgSrcPath + '/**/*.jpg', config.imgSrcPath + '/**/*.png', config.imgSrcPath + '/**/*.svg'], function() {
             gulp.start('image-minification');
         });
+
+        // Refresh browser
+        plugins.watch(config.browserSyncWatch).on('change', browserSync.reload);
+
     });
 };

@@ -10,6 +10,7 @@
   "author": "FcoSrno <github.com/fcosrno>",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.10.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-compass": "^2.1.0",

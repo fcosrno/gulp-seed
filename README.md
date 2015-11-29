@@ -24,6 +24,8 @@ Add your configuration to `config.json`, then comment out or delete the lines of
 `gulp/tasks/jade-convert.js` To be documented.
 ## Less Compile
 `gulp/tasks/less-compile.js` To be documented.
+## Refresh Browser with BrowserSync
+`gulp/tasks/browser-sync.js` To be documented.
 
 
 # TODO

@@ -10,5 +10,12 @@
     "lessDistPath": "./app/public",
     "jadeDistPath": "./app/partials",
     "imgDistPath": "./app/img",
-    "browserList": "> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1"
+    "browserList": "> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1",
+    "browserSync": {
+        "proxy": "http://localhost:3000",
+        "port": "4000",
+        "browser": ["google-chrome"],
+        "notify": true
+    },
+    "browserSyncWatch":["./public/**/*.*"]
 }
