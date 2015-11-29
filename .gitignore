@@ -35,9 +35,6 @@ publish
 build/buildinfo.properties
 build/config/buildinfo.properties
 
-# Docker Seed specific ignores
-docker-compose-dev.yml
-
-
 # Include your project-specific ignores below
 notes
+node_modules

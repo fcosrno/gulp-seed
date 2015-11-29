@@ -1,0 +1,10 @@
+{
+    "tasksPath": "./tasks",
+    "scssSrcPath": "./src/scss",
+    "jsSrcPath": "./src/js",
+    "imgSrcPath": "./src/img",
+    "cssDistPath": "./app/public",
+    "jsDistPath": "./app/public",
+    "imgDistPath": "./app/img",
+    "browserList": "> 1%', 'last 2 versions', 'Firefox ESR', 'Opera 12.1"
+}

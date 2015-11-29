@@ -1,0 +1,27 @@
+{
+    "name": "gulp-seed",
+    "version": "1.0.0",
+    "description": "Modular Gulp tasks for common web development.",
+    "main": "gulpfile.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "author": "FcoSrno <github.com/fcosrno>",
+    "license": "ISC",
+    "devDependencies": {
+        "gulp": "^3.9.0",
+        "gulp-autoprefixer": "^3.1.0",
+        "gulp-compass": "^2.1.0",
+        "gulp-imagemin": "^2.4.0",
+        "gulp-load-plugins": "^1.1.0",
+        "gulp-notify": "^2.2.0",
+        "gulp-plumber": "^1.0.1",
+        "gulp-uglify": "^1.5.1",
+        "gulp-watch": "^4.3.5"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/fcosrno/gulp-seed.git"
+    }
+}
