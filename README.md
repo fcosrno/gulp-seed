@@ -4,11 +4,19 @@ Modular Gulp tasks for common web development.
 
 # Setup
 
-Install dependencies with NPM.
+Clone this repo into your project. In most cases you'll need to clone it into a folder called gulp at your project's root.
 
-    npm install
+    git clone https://github.com/fcosrno/gulp-seed gulp
 
-Add your configuration to `config.json`, then comment out or delete the lines of tasks you don't need to run in `gulpfile.js` and `gulp/tasks/watch.js`
+cd into the new folder and install dependencies with NPM.
+
+    cd gulp && npm install
+
+Copy gulpfile.js.example into your root project folder. 
+
+    cp gulpfile.js.example ../gulpfile.js
+
+Add your configuration to `config.json`. Comment out or delete the lines of tasks you don't need to run in `gulpfile.js` and `gulp/tasks/watch.js` (should document this more).
 
 # Modules
 
@@ -26,11 +34,12 @@ Add your configuration to `config.json`, then comment out or delete the lines of
 `gulp/tasks/less-compile.js` To be documented.
 ## Refresh Browser with BrowserSync
 `gulp/tasks/browser-sync.js` To be documented.
+## Docker
+`gulp/tasks/docker.js` To be documented.
 
 
 # TODO
 
-- Add docker task
 - Add [nodemon task](https://gist.github.com/fcosrno/71735ed85a8ce4e7b209)
 - View tutum angular example gulpfile for ideas
 
