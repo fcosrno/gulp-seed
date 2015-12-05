@@ -1,5 +1,8 @@
 {
     "tasksPath": "./tasks",
+    "dockerContainersPath": "./containers",
+    "dockerProject":"boldapproach",
+    "dockerMachine":"default",
     "scssSrcPath": "./src/scss",
     "lessSrcPath": "./src/less",
     "jsSrcPath": "./src/js",
