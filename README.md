@@ -12,7 +12,7 @@ cd into the new folder and install dependencies with NPM.
 
     cd gulp && npm install
 
-Copy gulpfile.js.example into your root project folder. 
+Copy gulpfile.js.example into your root project folder.
 
     cp gulpfile.js.example ../gulpfile.js
 
@@ -29,7 +29,21 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 ## SASS Compile
 `gulp/tasks/sass-compile.js` To be documented.
 ## Jade Convert
-`gulp/tasks/jade-convert.js` To be documented.
+
+`gulp/tasks/jade-convert.js`
+
+Install dependencies
+
+    npm install --save-dev gulp-jade
+
+ Define source and destination paths in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "jadeSrcPath": "./src",
+        "jadeDistPath": "./app"
+    }
+
 ## Less Compile
 `gulp/tasks/less-compile.js` To be documented.
 ## Refresh Browser with BrowserSync
