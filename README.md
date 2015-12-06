@@ -20,14 +20,6 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 
 # Modules
 
-## Watch
-`gulp/tasks/watch.js` To be documented.
-## Image Minification
-`gulp/tasks/image-minification.js` To be documented.
-## JS Uglify
-`gulp/tasks/js-uglify.js` To be documented.
-## SASS Compile
-`gulp/tasks/sass-compile.js` To be documented.
 ## Jade Convert
 
 `gulp/tasks/jade-convert.js`
@@ -44,13 +36,41 @@ Install dependencies
         "jadeDistPath": "./app"
     }
 
+## Docker
+
+`gulp/tasks/docker.js`
+
+Install dependencies
+
+    npm install --save-dev yargs
+
+Define environment variables in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "dockerContainersPath": "./containers",
+        "dockerProject":"project_slug",
+        "dockerMachine":"default"
+    }
+
+`dockerContainersPath` is the location of your containers folder relative to the location of `gulpfile.js`
+
+`dockerProject` is your project's slug. This is usually the name of your project folder that will be served with `.dev`. This should be the same value you put into your `docker-compose-dev.yml` file. [Read the Docker Seed documentation for more](https://github.com/fcosrno/docker-seed).
+
+`dockerMachine` is the name of the active Docker Machine you're using to serve this project. You can see it by running `docker-machine ls`.
+
+## Watch
+`gulp/tasks/watch.js` To be documented.
+## Image Minification
+`gulp/tasks/image-minification.js` To be documented.
+## JS Uglify
+`gulp/tasks/js-uglify.js` To be documented.
+## SASS Compile
+`gulp/tasks/sass-compile.js` To be documented.
 ## Less Compile
 `gulp/tasks/less-compile.js` To be documented.
 ## Refresh Browser with BrowserSync
 `gulp/tasks/browser-sync.js` To be documented.
-## Docker
-`gulp/tasks/docker.js` To be documented.
-
 
 # TODO
 

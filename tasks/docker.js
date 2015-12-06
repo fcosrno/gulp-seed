@@ -1,8 +1,6 @@
 module.exports = function(gulp, plugins, config) {
-    // Source: https://github.com/roblayton/reactjs-shopping-cart/blob/master/gulpfile.js
-    // var gulp = require('gulp'),
+    // Reference: https://github.com/roblayton/reactjs-shopping-cart/blob/master/gulpfile.js
     var argv = require('yargs').argv;
-    var fs = require('fs');
     var exec = require('child_process').exec;
 
 
