@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var config = require('./gulp/config.json');
 var plugins = require('gulp-load-plugins')();
+plugins.browserSync = require('browser-sync').create();
 
 // JS Minification
 require(config.tasksPath + '/js-uglify')(gulp, plugins, config);
@@ -17,10 +18,13 @@ require(config.tasksPath + '/jade-convert')(gulp, plugins, config);
 // Image Optimization
 require(config.tasksPath + '/image-minification')(gulp, plugins, config);
 
+// Browser Sync
+require(config.tasksPath + '/browser-sync')(gulp, plugins, config);
+
 // Watch Task
 require(config.tasksPath + '/watch')(gulp, plugins, config);
 
-// Default Task Triggers Watch
-gulp.task('default', function() {
+// Default Task Triggers Watch after initializing BrowserSync
+gulp.task('default',['browser-sync'],function() {
    gulp.start('watch');
 });

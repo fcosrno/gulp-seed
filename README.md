@@ -59,8 +59,40 @@ Define environment variables in `gulp/config.json`
 
 `dockerMachine` is the name of the active Docker Machine you're using to serve this project. You can see it by running `docker-machine ls`.
 
+## BrowserSync
+`gulp/tasks/browser-sync.js`
+
+Install dependencies
+
+    npm install --save-dev browser-sync
+
+Define config in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "browserSync": {
+            "open": false,
+            "proxy": "http://example.dev",
+            "socket": {
+                "domain": "http://192.168.1.127:3000"
+            },
+            "browser": ["google-chrome"],
+            "notify": true
+        },
+        "browserSyncWatch":["./app/**/*.*"]
+    }
+
+`browserSync` is the [options](http://www.browsersync.io/docs/options/) required when you initialize BrowserSync.
+
+`browserSyncWatch` is the location that will trigger the browser refresh.
+
 ## Watch
-`gulp/tasks/watch.js` To be documented.
+`gulp/tasks/watch.js`
+
+Install dependencies
+
+    npm install --save-dev gulp-watch
+
 ## Image Minification
 `gulp/tasks/image-minification.js` To be documented.
 ## JS Uglify
@@ -69,8 +101,6 @@ Define environment variables in `gulp/config.json`
 `gulp/tasks/sass-compile.js` To be documented.
 ## Less Compile
 `gulp/tasks/less-compile.js` To be documented.
-## Refresh Browser with BrowserSync
-`gulp/tasks/browser-sync.js` To be documented.
 
 # TODO
 

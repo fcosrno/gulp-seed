@@ -26,8 +26,10 @@ module.exports = function(gulp, plugins, config) {
             gulp.start('image-minification');
         });
 
-        // Refresh browser
-        plugins.watch(config.browserSyncWatch).on('change', browserSync.reload);
+        // Refresh Browser
+        plugins.watch(config.browserSyncWatch, function() {
+            plugins.browserSync.reload();
+        });
 
     });
 };
