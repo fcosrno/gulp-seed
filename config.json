@@ -1,5 +1,6 @@
 {
     "tasksPath": "./gulp/tasks",
+    "injectSources":"./app/js/**/*.js",
     "dockerContainersPath": "./containers",
     "dockerProject":"boldapproach",
     "dockerMachine":"default",

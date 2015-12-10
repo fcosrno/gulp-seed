@@ -20,6 +20,27 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 
 # Modules
 
+## Inject
+
+`gulp/tasks/inject.js`
+
+Injects JS and CSS into your HTML. If you run inject you can skip watching javascript, css and jade.
+
+Install dependencies.
+
+    npm install --save-dev gulp-inject
+
+Define source and destination paths in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "injectSources":"./app/js/**/*.js",
+        "injectTarget":"./app/index.html",
+        "injectDestination":"./app"
+    }
+
+Note `injectDestination` is the folder here `injectTarget` resides.
+
 ## Javascript
 
 `gulp/tasks/javascript.js`
