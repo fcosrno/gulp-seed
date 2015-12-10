@@ -20,6 +20,24 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 
 # Modules
 
+## Clean
+
+`gulp/tasks/clean.js`
+
+Deletes files in target paths.
+
+Install dependencies.
+
+    npm install --save-dev gulp-clean
+
+Define target paths in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "cleanTarget":["./app/js/**/*.js","./app/js/**/*.html"]
+    }
+
+
 ## Inject
 
 `gulp/tasks/inject.js`

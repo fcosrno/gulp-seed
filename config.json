@@ -1,5 +1,6 @@
 {
     "tasksPath": "./gulp/tasks",
+    "cleanTarget":["./app/js/**/*.js","./app/js/**/*.html"],
     "injectSources":"./app/js/**/*.js",
     "dockerContainersPath": "./containers",
     "dockerProject":"boldapproach",
