@@ -1,7 +1,7 @@
 module.exports = function(gulp, plugins, config) {
-    gulp.task('jade-convert', function() {
+    gulp.task('jade', function() {
         var YOUR_LOCALS = {};
-        gulp.src(config.jadeSrcPath + '/**/*.jade')
+        gulp.src(config.jadeSrcPath)
             .pipe(plugins.jade({
                 locals: YOUR_LOCALS
             }))

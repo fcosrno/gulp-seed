@@ -1,7 +1,7 @@
 var browserSync = require('browser-sync').create();
 module.exports = function(gulp, plugins, config) {
     gulp.task('watch', function() {
-        
+
         // Builds JavaScript
         plugins.watch(config.jsSrcPath, function() {
             gulp.start('javascript');
@@ -18,8 +18,8 @@ module.exports = function(gulp, plugins, config) {
         });
 
         // Converts Jade
-        plugins.watch(config.jadeSrcPath + '/**/*.jade', function() {
-            gulp.start('jade-convert');
+        plugins.watch(config.jadeSrcPath, function() {
+            gulp.start('jade');
         });
 
         // Optimizes Images

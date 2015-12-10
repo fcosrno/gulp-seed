@@ -22,6 +22,8 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 
 ## Javascript
 
+`gulp/tasks/javascript.js`
+
 Concat, minify, rename, and rev. Should be used together with inject.
 
 Install dependencies.
@@ -36,9 +38,9 @@ Install dependencies.
          "jsDistPath":"./app/js",
      }
 
-## Jade Convert
+## Jade
 
-`gulp/tasks/jade-convert.js`
+`gulp/tasks/jade.js`
 
 Install dependencies
 
@@ -48,7 +50,7 @@ Install dependencies
 
     {
         "tasksPath": "./gulp/tasks",
-        "jadeSrcPath": "./src",
+        "jadeSrcPath": "./src/**/*.jade",
         "jadeDistPath": "./app"
     }
 
