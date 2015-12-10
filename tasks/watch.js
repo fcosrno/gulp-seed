@@ -1,9 +1,10 @@
 var browserSync = require('browser-sync').create();
 module.exports = function(gulp, plugins, config) {
     gulp.task('watch', function() {
+        
         // Builds JavaScript
-        plugins.watch(config.jsSrcPath + '/**/*.js', function() {
-            gulp.start('js-uglify');
+        plugins.watch(config.jsSrcPath, function() {
+            gulp.start('javascript');
         });
 
         // Builds CSS from SASS

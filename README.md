@@ -20,6 +20,22 @@ Add your configuration to `config.json`. Comment out or delete the lines of task
 
 # Modules
 
+## Javascript
+
+Concat, minify, rename, and rev. Should be used together with inject.
+
+Install dependencies.
+
+    npm install --save-dev gulp-uglify gulp-rev gulp-concat
+
+ Define source and destination paths in `gulp/config.json`
+
+     {
+         "tasksPath": "./gulp/tasks",
+         "jsSrcPath":["./node_modules/angular/angular.js","./src/**/*.js"],
+         "jsDistPath":"./app/js",
+     }
+
 ## Jade Convert
 
 `gulp/tasks/jade-convert.js`
