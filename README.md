@@ -143,6 +143,22 @@ Define config in `gulp/config.json`
 
 `browserSyncWatch` is the location that will trigger the browser refresh.
 
+## Less Compile
+
+`gulp/tasks/less-compile.js`
+
+Install dependencies.
+
+    npm install --save-dev gulp-autoprefixer gulp-less gulp-minify-css
+
+Define config in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "lessSrcPath": "./src/style.less",
+        "lessDistPath":"./app/css"
+    }
+
 ## Watch
 `gulp/tasks/watch.js`
 
@@ -156,8 +172,6 @@ Install dependencies
 `gulp/tasks/js-uglify.js` To be documented.
 ## SASS Compile
 `gulp/tasks/sass-compile.js` To be documented.
-## Less Compile
-`gulp/tasks/less-compile.js` To be documented.
 
 # TODO
 

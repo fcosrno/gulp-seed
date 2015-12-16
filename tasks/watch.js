@@ -19,9 +19,9 @@ module.exports = function(gulp, plugins, config) {
         // });
 
         // Builds CSS from LESS
-        // plugins.watch(config.lessSrcPath + '/**/*.less', function() {
-        //     gulp.start('less-compile');
-        // });
+        plugins.watch(config.lessSrcPath, function() {
+            gulp.start('less-compile');
+        });
 
         // Converts Jade
         // plugins.watch(config.jadeSrcPath, function() {
