@@ -4,28 +4,28 @@ module.exports = function(gulp, plugins, config) {
     var exec = require('child_process').exec;
 
 
-    var project_slug = config.dockerProject;
-    var docker_machine_name = config.dockerMachine || "default";
+    var project_slug = config.docker.project;
+    var docker_machine_name = config.docker.machine || "default";
 
     var environment = 'dev';
     if (argv.production) environment = 'production';
     if (argv.staging) environment = 'staging';
 
     gulp.task('build-reverse-proxy', function() {
-        exec('docker-compose -f '+config.dockerContainersPath+'/docker-compose-proxy.yml -p nginx up -d', function(err, stdout, stderr) {
+        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-proxy.yml -p nginx up -d', function(err, stdout, stderr) {
             console.log(stdout);
         });
 
     });
 
     gulp.task('build-docker', function() {
-        exec('docker-compose -f '+config.dockerContainersPath+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' build', function(err, stdout, stderr) {
+        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' build', function(err, stdout, stderr) {
             console.log(stdout);
         });
     });
 
     gulp.task('compose', ['build-docker', 'build-reverse-proxy'], function() {
-        exec('docker-compose -f '+config.dockerContainersPath+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' up -d', function(err, stdout, stderr) {
+        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' up -d', function(err, stdout, stderr) {
             if (err) {
                 throw stderr;
             } else {

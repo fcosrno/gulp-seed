@@ -1,14 +1,12 @@
-var browserSync = require('browser-sync').create();
 module.exports = function(gulp, plugins, config) {
-    gulp.task('watch', function() {
+    gulp.task('watch', config.watch.runAfter,function() {
 
         // Injects JS and CSS into Jade
-        // If you run inject you can skip watching javascript, css and jade.
-        plugins.watch(config.jsSrcPath, function() {
+        plugins.watch(config.watch.files, function() {
             gulp.start('inject');
         });
 
-        // Builds JavaScript
+        // // Builds JavaScript
         // plugins.watch(config.jsSrcPath, function() {
         //     gulp.start('javascript');
         // });
@@ -19,14 +17,14 @@ module.exports = function(gulp, plugins, config) {
         // });
 
         // Builds CSS from LESS
-        plugins.watch(config.lessSrcPath, function() {
-            gulp.start('less-compile');
-        });
+        // plugins.watch(config.lessSrcPath, function() {
+        //     gulp.start('less-compile');
+        // });
 
         // Converts Jade
         // plugins.watch(config.jadeSrcPath, function() {
-        //     gulp.start('jade');
-        // });
+        //    gulp.start('jade');
+        //});
 
         // Optimizes Images
         // plugins.watch([config.imgSrcPath + '/**/*.jpg', config.imgSrcPath + '/**/*.png', config.imgSrcPath + '/**/*.svg'], function() {
@@ -37,6 +35,7 @@ module.exports = function(gulp, plugins, config) {
         plugins.watch(config.browserSyncWatch, function() {
             plugins.browserSync.reload();
         });
+
 
     });
 };

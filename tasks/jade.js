@@ -1,10 +1,9 @@
 module.exports = function(gulp, plugins, config) {
-    gulp.task('jade', function() {
-        var YOUR_LOCALS = {};
-        gulp.src(config.jadeSrcPath)
+    gulp.task('jade',config.jade.runAfter,function() {
+        gulp.src(config.jade.from)
             .pipe(plugins.jade({
-                locals: YOUR_LOCALS
+                locals: {}
             }))
-            .pipe(gulp.dest(config.jadeDistPath));
+            .pipe(gulp.dest(config.jade.to));
     });
 };

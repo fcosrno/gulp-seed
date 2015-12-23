@@ -1,9 +1,9 @@
 module.exports = function(gulp, plugins, config) {
-    gulp.task('less-compile', function() {
-        gulp.src(config.lessSrcPath)
+    gulp.task('less',config.less.runAfter, function() {
+        gulp.src(config.less.from)
             .pipe(plugins.less())
             .pipe(plugins.minifyCss())
             .pipe(plugins.autoprefixer('last 10 version'))
-            .pipe(gulp.dest(config.lessDistPath));
+            .pipe(gulp.dest(config.less.to));
     });
 };

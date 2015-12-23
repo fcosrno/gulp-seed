@@ -1,6 +1,6 @@
 module.exports = function(gulp, plugins, config) {
-    gulp.task('clean', function() {
-        return gulp.src(config.cleanTarget, {
+    gulp.task('clean',config.clean.runAfter, function() {
+        return gulp.src(config.clean.target, {
                 read: false
             })
             .pipe(plugins.clean());

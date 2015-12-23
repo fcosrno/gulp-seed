@@ -18,6 +18,30 @@ Copy gulpfile.js.example into your root project folder.
 
 Add your configuration to `config.json`. Comment out or delete the lines of tasks you don't need to run in `gulpfile.js` and `gulp/tasks/watch.js` (should document this more).
 
+# Configuration
+
+For the most part, tasks can be configured in the `config.json` file so you don't need to modify each module file directly. However, for custom behavior, feel free to modify modules directly.
+
+## Callbacks (running modules sequentially)
+
+Each module has a `runAfter` property. This is an array of gulp tasks that run asynchroniously before the task. It will be injected as the second parameter of `gulp.task()` (common gulp behavior).
+
+Keep in mind that even though the `runAfter` property is an array, these tasks are not run in the array order you set them. If you want to run tasks sequentially, set one task to run after the other.
+
+Here is an example if you want to run tasks in the following order: less->jade->javascript
+
+    {
+        "less":{
+            "runAfter":[]
+        },
+        "jade":{
+            "runAfter":["less"]
+        },
+        "javascript":{
+            "runAfter":["jade"]
+        }
+    }
+
 # Modules
 
 ## Clean
@@ -34,7 +58,14 @@ Define target paths in `gulp/config.json`
 
     {
         "tasksPath": "./gulp/tasks",
-        "cleanTarget":["./app/js/**/*.js","./app/js/**/*.html"]
+        "clean": {
+            "target": [
+                "./app/js/**/*.js",
+                "./app/**/*.html",
+                "./app/css/**/*.css"
+            ],
+            "runAfter": []
+        }
     }
 
 
@@ -52,12 +83,15 @@ Define source and destination paths in `gulp/config.json`
 
     {
         "tasksPath": "./gulp/tasks",
-        "injectSources":"./app/js/**/*.js",
-        "injectTarget":"./app/index.html",
-        "injectDestination":"./app"
+        "inject": {
+            "from": "./app/js/**/*.js",
+            "to": "./app/index.html",
+            "folder": "./app",
+            "runAfter": ["javascript"]
+        }
     }
 
-Note `injectDestination` is the folder here `injectTarget` resides.
+Note `folder` is the folder where `to` resides. Seems redundant, but it's a requirement.
 
 ## Javascript
 
@@ -73,8 +107,21 @@ Install dependencies.
 
      {
          "tasksPath": "./gulp/tasks",
-         "jsSrcPath":["./node_modules/angular/angular.js","./src/**/*.js"],
-         "jsDistPath":"./app/js",
+         "javascript": {
+             "from": [
+                 "./node_modules/angular/angular.js",
+                 "./node_modules/angular-route/angular-route.js",
+                 "./node_modules/angular-filter/dist/angular-filter.js",
+                 "./node_modules/lodash/index.js",
+                 "./src/ui-bootstrap-custom-build/ui-bootstrap-custom-tpls-0.14.3.js",
+                 "./src/app.js",
+                 "./src/DataService.js",
+                 "./src/**/*.js"
+             ],
+             "to": "./app/js",
+             "filename": "script.js",
+             "runAfter": ["jade"]
+         }
      }
 
 ## Jade
@@ -89,8 +136,11 @@ Install dependencies
 
     {
         "tasksPath": "./gulp/tasks",
-        "jadeSrcPath": "./src/**/*.jade",
-        "jadeDistPath": "./app"
+        "jade": {
+            "from": "./src/**/*.jade",
+            "to": "./app",
+            "runAfter": ["less"]
+        }
     }
 
 ## Docker
@@ -105,16 +155,18 @@ Define environment variables in `gulp/config.json`
 
     {
         "tasksPath": "./gulp/tasks",
-        "dockerContainersPath": "./containers",
-        "dockerProject":"project_slug",
-        "dockerMachine":"default"
+        "docker":{
+                "project":"example",
+                "machine":"default",
+                "path_to_containers":"./containers"
+        }
     }
 
-`dockerContainersPath` is the location of your containers folder relative to the location of `gulpfile.js`
+`path_to_containers` is the location of your containers folder relative to the location of `gulpfile.js`
 
-`dockerProject` is your project's slug. This is usually the name of your project folder that will be served with `.dev`. This should be the same value you put into your `docker-compose-dev.yml` file. [Read the Docker Seed documentation for more](https://github.com/fcosrno/docker-seed).
+`project` is your project's slug. This is usually the name of your project folder that will be served with `.dev`. This should be the same value you put into your `docker-compose-dev.yml` file. [Read the Docker Seed documentation for more](https://github.com/fcosrno/docker-seed).
 
-`dockerMachine` is the name of the active Docker Machine you're using to serve this project. You can see it by running `docker-machine ls`.
+`machine` is the name of the active Docker Machine you're using to serve this project. You can see it by running `docker-machine ls`.
 
 ## BrowserSync
 `gulp/tasks/browser-sync.js`
@@ -143,9 +195,9 @@ Define config in `gulp/config.json`
 
 `browserSyncWatch` is the location that will trigger the browser refresh.
 
-## Less Compile
+## Less
 
-`gulp/tasks/less-compile.js`
+`gulp/tasks/less.js`
 
 Install dependencies.
 
@@ -155,8 +207,11 @@ Define config in `gulp/config.json`
 
     {
         "tasksPath": "./gulp/tasks",
-        "lessSrcPath": "./src/style.less",
-        "lessDistPath":"./app/css"
+        "less": {
+            "from": "./src/style.less",
+            "to": "./app/css",
+            "runAfter": ["font-awesome"]
+        }
     }
 
 ## Watch
@@ -166,10 +221,23 @@ Install dependencies
 
     npm install --save-dev gulp-watch
 
+Define config in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+            "watch": {
+                "files": [
+                    "./src/**/*.js",
+                    "./src/**/*.jade",
+                    "./src/style.less"
+                ],
+                "runAfter": []
+            }
+    }
+
 ## Image Minification
 `gulp/tasks/image-minification.js` To be documented.
-## JS Uglify
-`gulp/tasks/js-uglify.js` To be documented.
+
 ## SASS Compile
 `gulp/tasks/sass-compile.js` To be documented.
 
