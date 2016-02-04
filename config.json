@@ -4,6 +4,9 @@
         "from": "./app/js/**/*.js",
         "to": "./app/index.html",
         "folder": "./app",
+        "options":{
+            "relative": false,
+        },
         "runAfter": ["javascript"]
     },
     "watch": {

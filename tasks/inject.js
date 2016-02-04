@@ -3,9 +3,7 @@ module.exports = function(gulp, plugins, config) {
         return gulp.src(config.inject.to)
             .pipe(plugins.inject(gulp.src(config.inject.from, {
                 read: false
-            }), {
-                relative: true
-            }))
+            }), config.inject.options))
             .pipe(gulp.dest(config.inject.folder));
 
     });
