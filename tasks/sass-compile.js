@@ -1,6 +1,6 @@
 module.exports = function(gulp, plugins, config) {
     gulp.task('sass-compile', function() {
-        returngulp.src(config.scssSrcPath + '/main.scss')
+        return gulp.src(config.scssSrcPath + '/main.scss')
             .pipe(plugins.plumber({
                 errorHandler: plugins.notify.onError("ERROR: CSS Compilation Failed")
             }))
