@@ -4,6 +4,7 @@ module.exports = function(gulp, plugins, config) {
             .pipe(plugins.less())
             .pipe(plugins.minifyCss())
             .pipe(plugins.autoprefixer('last 10 version'))
+            .pipe(plugins.rev())
             .pipe(gulp.dest(config.less.to));
     });
 };
