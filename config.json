@@ -55,6 +55,20 @@
         ],
         "runAfter": []
     },
+    "images": {
+        "from": "./app/img/*",
+        "to": "./app/build",
+        "options": {
+            "progressive": true,
+            "interlaced": true,
+            "svgoPlugins": [{
+                "removeUnknownsAndDefaults": false
+            }, {
+                "cleanupIDs": false
+            }]
+        },
+        "runAfter": []
+    },
     "docker":{
             "project":"example",
             "machine":"default",

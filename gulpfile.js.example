@@ -22,7 +22,7 @@ require(config.tasksPath + '/less-compile')(gulp, plugins, config);
 require(config.tasksPath + '/jade')(gulp, plugins, config);
 
 // Image Optimization
-require(config.tasksPath + '/image-minification')(gulp, plugins, config);
+require(config.tasksPath + '/images')(gulp, plugins, config);
 
 // Docker Management
 require(config.tasksPath + '/docker')(gulp, plugins, config);

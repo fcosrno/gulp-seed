@@ -225,18 +225,45 @@ Define config in `gulp/config.json`
 
     {
         "tasksPath": "./gulp/tasks",
-            "watch": {
-                "files": [
-                    "./src/**/*.js",
-                    "./src/**/*.jade",
-                    "./src/style.less"
-                ],
-                "runAfter": []
-            }
+        "watch": {
+            "files": [
+                "./src/**/*.js",
+                "./src/**/*.jade",
+                "./src/style.less"
+            ],
+            "runAfter": []
+        }
     }
 
-## Image Minification
-`gulp/tasks/image-minification.js` To be documented.
+## Images
+`gulp/tasks/images.js`
+
+Run lossless compression on all the images.
+
+Install dependencies
+
+    npm install --save-dev gulp-imagemin
+
+Define config in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "images": {
+            "from": "./app/img/*",
+            "to": "./app/build",
+            "options": {
+                "progressive": true,
+                "interlaced": true,
+                "svgoPlugins": [{
+                    "removeUnknownsAndDefaults": false
+                }, {
+                    "cleanupIDs": false
+                }]
+            },
+            "runAfter": []
+        }
+    }
+
 
 ## SASS Compile
 `gulp/tasks/sass-compile.js` To be documented.
