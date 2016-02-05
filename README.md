@@ -270,6 +270,7 @@ Define config in `gulp/config.json`
 
 # TODO
 
+- Fix teardown with docker rm --force $(docker ps --filter "name=projectname" -q)
 - Add [Angular2 related modules](http://blog.scottlogic.com/2015/12/24/creating-an-angular-2-build.html?utm_campaign=NG-Newsletter&utm_medium=email&utm_source=NG-Newsletter_129)
 - Add [nodemon task](https://gist.github.com/fcosrno/71735ed85a8ce4e7b209)
 - View tutum angular example gulpfile for ideas
