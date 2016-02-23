@@ -12,8 +12,8 @@ require(config.tasksPath + '/clean')(gulp, plugins, config);
 // Inject
 require(config.tasksPath + '/inject')(gulp, plugins, config);
 
-// SASS Compilation
-require(config.tasksPath + '/sass-compile')(gulp, plugins, config);
+// SASS
+require(config.tasksPath + '/sass')(gulp, plugins, config);
 
 // LESS Compilation
 require(config.tasksPath + '/less-compile')(gulp, plugins, config);

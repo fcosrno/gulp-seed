@@ -6,6 +6,7 @@
         "folder": "./app",
         "options":{
             "relative": false,
+            "ignorePath":"dist"
         },
         "runAfter": ["javascript"]
     },
@@ -68,6 +69,14 @@
             }]
         },
         "runAfter": []
+    },
+    "sass": {
+      "from": "./src/sass/styles.scss",
+      "to": "./dist",
+      "options": {
+        "outputStyle": "compressed"
+      },
+      "runAfter": ["images"]
     },
     "docker":{
             "project":"example",

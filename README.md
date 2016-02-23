@@ -87,6 +87,10 @@ Define source and destination paths in `gulp/config.json`
             "from": "./app/js/**/*.js",
             "to": "./app/index.html",
             "folder": "./app",
+            "options":{
+                "relative": false,
+                "ignorePath":"dist"
+            },
             "runAfter": ["javascript"]
         }
     }
@@ -265,8 +269,28 @@ Define config in `gulp/config.json`
     }
 
 
-## SASS Compile
-`gulp/tasks/sass-compile.js` To be documented.
+## SASS
+`gulp/tasks/sass.js`
+
+Compile SASS to minified css.
+
+Install dependencies
+
+    npm install --save-dev gulp-sass gulp-rev gulp-autoprefixer gulp-minify-css
+
+    Define config in `gulp/config.json`
+
+        {
+            "tasksPath": "./gulp/tasks",
+            "sass": {
+              "from": "./src/sass/styles.scss",
+              "to": "./dist",
+              "options": {
+                "outputStyle": "compressed"
+              },
+              "runAfter": ["images"]
+            }
+        }
 
 # TODO
 
