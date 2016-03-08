@@ -44,6 +44,23 @@ Here is an example if you want to run tasks in the following order: less->jade->
 
 # Modules
 
+## Copy
+
+`gulp/tasks/copy.js`
+
+Copies files from one place to the other. Works best in src->dest environments for fonts and other misc files like ".ico". Don't use this for images, though. Look for that module below.
+
+Define target paths in `gulp/config.json`
+
+    {
+        "tasksPath": "./gulp/tasks",
+        "copy":{
+          "from": ["./src/fonts/*","./src/favicon.ico"],
+          "to": ["./dist/fonts","./dist"],
+          "runAfter": ["images"]
+        }
+    }
+
 ## Clean
 
 `gulp/tasks/clean.js`
@@ -67,7 +84,6 @@ Define target paths in `gulp/config.json`
             "runAfter": []
         }
     }
-
 
 ## Inject
 
@@ -214,7 +230,7 @@ Define config in `gulp/config.json`
         "less": {
             "from": "./src/style.less",
             "to": "./app/css",
-            "runAfter": ["font-awesome"]
+            "runAfter": []
         }
     }
 

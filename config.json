@@ -41,12 +41,12 @@
     "less": {
         "from": "./src/style.less",
         "to": "./app/css",
-        "runAfter": ["font-awesome"]
+        "runAfter": ["copy"]
     },
-    "fontAwesome": {
-        "from": "./node_modules/font-awesome/fonts/*",
-        "to": "./app/fonts",
-        "runAfter": ["clean"]
+    "copy":{
+      "from": ["./src/fonts/*","./src/favicon.ico"],
+      "to": ["./dist/fonts","./dist"],
+      "runAfter": ["images"]
     },
     "clean": {
         "target": [
@@ -92,5 +92,5 @@
         "browser": ["google-chrome"],
         "notify": true
     },
-    "browserSyncWatch": ["./app/**/*.*"]
+    "browserSyncWatch": ["./dist/**/*.*"]
 }
