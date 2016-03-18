@@ -1,39 +1,9 @@
 var gulp = require('gulp');
-var config = require('./gulp/config.json');
-var plugins = require('gulp-load-plugins')();
-plugins.browserSync = require('browser-sync').create();
+require('./gulp/bootstrap.js');
 
-// Javascript
-require(config.tasksPath + '/javascript')(gulp, plugins, config);
-
-// Clean
-require(config.tasksPath + '/clean')(gulp, plugins, config);
-
-// Inject
-require(config.tasksPath + '/inject')(gulp, plugins, config);
-
-// SASS
-require(config.tasksPath + '/sass')(gulp, plugins, config);
-
-// LESS Compilation
-require(config.tasksPath + '/less-compile')(gulp, plugins, config);
-
-// Jade
-require(config.tasksPath + '/jade')(gulp, plugins, config);
-
-// Image Optimization
-require(config.tasksPath + '/images')(gulp, plugins, config);
-
-// Docker Management
-require(config.tasksPath + '/docker')(gulp, plugins, config);
-
-// Browser Sync
-require(config.tasksPath + '/browser-sync')(gulp, plugins, config);
-
-// Watch Task
-require(config.tasksPath + '/watch')(gulp, plugins, config);
-
-// Default Task Triggers Watch after initializing BrowserSync
-gulp.task('default',['browser-sync'],function() {
-   gulp.start('watch');
+gulp.task('default',function() {
+   gulp.start(['watch']);
+});
+gulp.task('build',['clean'],function(){
+    gulp.start(['images','inject']);
 });
