@@ -1,5 +1,5 @@
 {
-    "tasksPath": "./gulp/tasks",
+    "tasksPath": "./tasks",
     "inject": {
         "from": "./app/js/**/*.js",
         "to": "./app/index.html",
