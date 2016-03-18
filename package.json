@@ -10,17 +10,17 @@
   "author": "FcoSrno <github.com/fcosrno>",
   "license": "ISC",
   "devDependencies": {
-      "browser-sync": "^2.10.0",
-      "gulp": "^3.9.0",
-      "gulp-clean": "^0.3.1",
-      "gulp-concat": "^2.6.0",
-      "gulp-inject": "^3.0.0",
-      "gulp-jade": "^1.1.0",
-      "gulp-load-plugins": "^1.1.0",
-      "gulp-rev": "^6.0.1",
-      "gulp-uglify": "^1.5.1",
-      "gulp-watch": "^4.3.5",
-      "yargs": "^3.31.0"
+    "browser-sync": "^2.10.0",
+    "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-rev": "^6.0.1",
+    "gulp-uglify": "^1.5.1",
+    "gulp-watch": "^4.3.5",
+    "yargs": "^3.31.0"
   },
   "repository": {
     "type": "git",
