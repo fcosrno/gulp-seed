@@ -83,6 +83,14 @@
             "machine":"default",
             "path_to_containers":"./containers"
     },
+    "browserSyncWatch": {
+        "files": [
+            "./src/**/*.js",
+            "./src/**/*.jade",
+            "./src/**/*.scss"
+        ],
+        "runAfter": ["inject"]
+    },
     "browserSync": {
         "open": false,
         "proxy": "http://example.dev",
@@ -91,6 +99,5 @@
         },
         "browser": ["google-chrome"],
         "notify": true
-    },
-    "browserSyncWatch": ["./dist/**/*.*"]
+    }
 }

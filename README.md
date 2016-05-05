@@ -53,7 +53,6 @@ Copies files from one place to the other. Works best in src->dest environments f
 Define target paths in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "copy":{
           "from": ["./src/fonts/*","./src/favicon.ico"],
           "to": ["./dist/fonts","./dist"],
@@ -74,7 +73,6 @@ Install dependencies.
 Define target paths in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "clean": {
             "target": [
                 "./app/js/**/*.js",
@@ -98,7 +96,6 @@ Install dependencies.
 Define source and destination paths in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "inject": {
             "from": "./app/js/**/*.js",
             "to": "./app/index.html",
@@ -126,7 +123,6 @@ Install dependencies.
  Define source and destination paths in `gulp/config.json`
 
      {
-         "tasksPath": "./gulp/tasks",
          "javascript": {
              "from": [
                  "./node_modules/angular/angular.js",
@@ -155,7 +151,6 @@ Install dependencies
  Define source and destination paths in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "jade": {
             "from": "./src/**/*.jade",
             "to": "./app",
@@ -174,7 +169,6 @@ Install dependencies
 Define environment variables in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "docker":{
                 "project":"example",
                 "machine":"default",
@@ -198,22 +192,33 @@ Install dependencies
 Define config in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "browserSync": {
-            "open": false,
-            "proxy": "http://example.dev",
-            "socket": {
-                "domain": "http://192.168.1.127:3000"
-            },
-            "browser": ["google-chrome"],
-            "notify": true
+          "open": false,
+          "proxy": "http://example.dev",
+          "socket": {
+              "domain": "http://172.31.98.43:3000"
+          },
+          "browser": ["google-chrome"],
+          "notify": true
         },
-        "browserSyncWatch":["./app/**/*.*"]
     }
 
 `browserSync` is the [options](http://www.browsersync.io/docs/options/) required when you initialize BrowserSync.
 
-`browserSyncWatch` is the location that will trigger the browser refresh.
+
+## browserSyncWatch
+
+An abstractio of gulp-watch and browser-sync to get [browser reloading](https://www.browsersync.io/docs/gulp/#gulp-reload) working correctly, ie at the very end of the build. The config structure is the same as the watch module.
+    {
+        "browserSyncWatch": {
+            "files": [
+                "./src/**/*.js",
+                "./src/**/*.jade",
+                "./src/**/*.scss"
+            ],
+            "runAfter": ["inject"]
+        }
+    }
 
 ## Less
 
@@ -244,7 +249,6 @@ Install dependencies
 Define config in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "watch": {
             "files": [
                 "./src/**/*.js",
@@ -267,7 +271,6 @@ Install dependencies
 Define config in `gulp/config.json`
 
     {
-        "tasksPath": "./gulp/tasks",
         "images": {
             "from": "./app/img/*",
             "to": "./app/build",
@@ -297,7 +300,6 @@ Install dependencies
     Define config in `gulp/config.json`
 
         {
-            "tasksPath": "./gulp/tasks",
             "sass": {
               "from": "./src/sass/styles.scss",
               "to": "./dist",

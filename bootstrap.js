@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var config = require('./config.json');
-var plugins = require('gulp-load-plugins')();
-// plugins.browserSync = require('browser-sync').create();
+var plugins = require('gulp-load-plugins')({pattern:['*']});
 
 // A handy helper function...
 function string_to_slug(str) {
@@ -25,6 +24,6 @@ function string_to_slug(str) {
 
 // Initialize modules in config...
 Object.keys(config).forEach(function (key) {
-  var exceptions = ['tasksPath','browserSyncWatch'];
+  var exceptions = ['tasksPath'];
   if(exceptions.indexOf(key) === -1) require(config.tasksPath + '/'+string_to_slug(key))(gulp, plugins, config);
 });
