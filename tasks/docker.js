@@ -40,6 +40,7 @@ module.exports = function(gulp, plugins, config) {
     });
 
     function addHost(ip) {
+        ip =  ip.trim() || '0.0.0.0';
         var hosts = (argv.hosts || '/etc/hosts');
         var data = ip.trim() + ' ' + project_slug + '.dev';
 
@@ -89,6 +90,7 @@ module.exports = function(gulp, plugins, config) {
         });
 
         function addHost(ip) {
+            ip =  ip.trim() || '0.0.0.0';
             var hosts = (argv.hosts || '/etc/hosts');
             var data = ip.trim() + ' ' + project_slug + '.dev';
 
