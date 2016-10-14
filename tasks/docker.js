@@ -12,20 +12,23 @@ module.exports = function(gulp, plugins, config) {
     if (argv.staging) environment = 'staging';
 
     gulp.task('build-reverse-proxy', function() {
-        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-proxy.yml -p nginx up -d', function(err, stdout, stderr) {
-            console.log(stdout);
-        });
+        // Only run on development env
+        if (environment === 'dev') {
+            exec('docker run -d -p 80:80 -v /var/run/docker.sock:/tmp/docker.sock:ro jwilder/nginx-proxy', function(err, stdout, stderr) {
+                console.log(stdout);
+            });
+        }
 
     });
 
     gulp.task('build-docker', function() {
-        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' build', function(err, stdout, stderr) {
+        exec('docker-compose -f ' + config.docker.path_to_containers + '/docker-compose-' + environment + '.yml -p ' + project_slug + ' build', function(err, stdout, stderr) {
             console.log(stdout);
         });
     });
 
     gulp.task('compose', ['build-docker', 'build-reverse-proxy'], function() {
-        exec('docker-compose -f '+config.docker.path_to_containers+'/docker-compose-' + environment + '.yml -p ' + project_slug + ' up -d', function(err, stdout, stderr) {
+        exec('docker-compose -f ' + config.docker.path_to_containers + '/docker-compose-' + environment + '.yml -p ' + project_slug + ' up -d', function(err, stdout, stderr) {
             if (err) {
                 throw stderr;
             } else {
@@ -33,14 +36,16 @@ module.exports = function(gulp, plugins, config) {
                 // Get docker machine ip
                 console.log('You may need to enter your sudo password to edit your hosts file.');
                 exec('docker-machine ip ' + docker_machine_name, function(err, stdout, stderr) {
-                    addHost(stdout);
+                    if (environment === 'dev') {
+                        addHost(stdout);
+                    }
                 });
             }
         });
     });
 
     function addHost(ip) {
-        ip =  ip.trim() || '0.0.0.0';
+        ip = ip.trim() || '0.0.0.0';
         var hosts = (argv.hosts || '/etc/hosts');
         var data = ip.trim() + ' ' + project_slug + '.dev';
 
@@ -86,11 +91,13 @@ module.exports = function(gulp, plugins, config) {
         // Get docker machine ip
         exec('docker-machine ip ' + docker_machine_name, function(err, stdout, stderr) {
             exec("echo 'You may need to enter your sudo password to edit your hosts file.'");
-            addHost(stdout);
+            if (environment === 'dev') {
+                addHost(stdout);
+            }
         });
 
         function addHost(ip) {
-            ip =  ip.trim() || '0.0.0.0';
+            ip = ip.trim() || '0.0.0.0';
             var hosts = (argv.hosts || '/etc/hosts');
             var data = ip.trim() + ' ' + project_slug + '.dev';
 
