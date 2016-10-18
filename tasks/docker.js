@@ -3,9 +3,13 @@ module.exports = function(gulp, plugins, config) {
     var argv = require('yargs').argv;
     var exec = require('child_process').exec;
 
-
-    var project_slug = config.docker.project;
-    var docker_machine_name = config.docker.machine || "default";
+    // Make docker config settings optional. Project slug defaults to folder name where gulfile resides.
+    docker_machine_name = "default"; // To be deprecated
+    project_slug = process.cwd().split('/').pop();
+    if(config.docker){
+      project_slug = config.docker.project || process.cwd().split('/').pop();
+      docker_machine_name = config.docker.machine || "default";
+    }
 
     var environment = 'dev';
     if (argv.production) environment = 'production';
@@ -22,13 +26,22 @@ module.exports = function(gulp, plugins, config) {
     });
 
     gulp.task('build-docker', function() {
-        exec('docker-compose -f ' + config.docker.path_to_containers + '/docker-compose-' + environment + '.yml -p ' + project_slug + ' build', function(err, stdout, stderr) {
+        exec('docker-compose build', function(err, stdout, stderr) {
             console.log(stdout);
         });
     });
 
     gulp.task('compose', ['build-docker', 'build-reverse-proxy'], function() {
-        exec('docker-compose -f ' + config.docker.path_to_containers + '/docker-compose-' + environment + '.yml -p ' + project_slug + ' up -d', function(err, stdout, stderr) {
+
+        var command = 'docker-compose -f ./docker-compose.yaml ';
+        if (environment !== 'dev') {
+            command += '-f ./docker-compose.' + environment + '.yaml ';
+        }
+        command += 'up -d';
+
+        console.log(command);
+
+        exec(command, function(err, stdout, stderr) {
             if (err) {
                 throw stderr;
             } else {
@@ -120,7 +133,7 @@ module.exports = function(gulp, plugins, config) {
 
     gulp.task('construct', ['machine-start', 'machine-env-notification']);
     gulp.task('teardown', function() {
-        exec('docker stop $(docker ps --filter="name=' + project_slug + '_' + environment + '_*" -aq)', function(err, stdout, stderr) {
+        exec('docker-compose -stop', function(err, stdout, stderr) {
             console.log(stdout);
         });
     });
