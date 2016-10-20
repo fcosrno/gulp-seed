@@ -133,7 +133,7 @@ module.exports = function(gulp, plugins, config) {
 
     gulp.task('construct', ['machine-start', 'machine-env-notification']);
     gulp.task('teardown', function() {
-        exec('docker-compose -stop', function(err, stdout, stderr) {
+        exec('docker-compose stop', function(err, stdout, stderr) {
             console.log(stdout);
         });
     });
