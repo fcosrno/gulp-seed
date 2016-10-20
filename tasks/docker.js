@@ -37,7 +37,7 @@ module.exports = function(gulp, plugins, config) {
         if (environment !== 'dev') {
             command += '-f ./docker-compose.' + environment + '.yaml ';
         }
-        command += 'up -d';
+        command += 'up --force-recreate -d';
 
         console.log(command);
 
