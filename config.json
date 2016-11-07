@@ -4,9 +4,9 @@
         "from": "./app/js/**/*.js",
         "to": "./app/index.html",
         "folder": "./app",
-        "options":{
+        "options": {
             "relative": false,
-            "ignorePath":"dist"
+            "ignorePath": "dist"
         },
         "runAfter": ["javascript"]
     },
@@ -43,10 +43,10 @@
         "to": "./app/css",
         "runAfter": ["copy"]
     },
-    "copy":{
-      "from": ["./src/fonts/*","./src/favicon.ico"],
-      "to": ["./dist/fonts","./dist"],
-      "runAfter": ["images"]
+    "copy": {
+        "from": ["./src/fonts/*", "./src/favicon.ico"],
+        "to": ["./dist/fonts", "./dist"],
+        "runAfter": ["images"]
     },
     "clean": {
         "target": [
@@ -71,17 +71,21 @@
         "runAfter": []
     },
     "sass": {
-      "from": "./src/sass/styles.scss",
-      "to": "./dist",
-      "options": {
-        "outputStyle": "compressed"
-      },
-      "runAfter": ["images"]
+        "from": "./src/sass/styles.scss",
+        "to": "./dist",
+        "options": {
+            "outputStyle": "compressed"
+        },
+        "runAfter": ["images"]
     },
-    "docker":{
-            "project":"example",
-            "machine":"default",
-            "path_to_containers":"./containers"
+    "docker": {
+        "project": "example",
+        "machine": "default",
+        "path_to_containers": "./containers"
+    },
+    "backup": {
+        "database": "docker-compose exec mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
+        "content": "tar -czvf ./.backup/`date +%m-%d-%Y`.uploads.tar.gz ./.data/uploads"
     },
     "browserSyncWatch": {
         "files": [

@@ -83,6 +83,23 @@ Define target paths in `gulp/config.json`
         }
     }
 
+## Backup
+
+`gulp/tasks/backup.js`
+
+Backs up data using a combination of conventions and technologies like Docker and AWS S3.
+
+Install dependencies.
+
+    npm install --save-dev del yargs
+
+Define commands in config.json
+
+    "backup": {
+        "database": "docker-compose exec mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
+        "content": "tar -czvf ./.backup/`date +%m-%d-%Y`.uploads.tar.gz ./.data/uploads"
+    }
+
 ## Inject
 
 `gulp/tasks/inject.js`
