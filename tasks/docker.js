@@ -2,18 +2,49 @@ module.exports = function(gulp, plugins, config) {
     // Reference: https://github.com/roblayton/reactjs-shopping-cart/blob/master/gulpfile.js
     var argv = require('yargs').argv;
     var exec = require('child_process').exec;
+    var fs = require('fs');
 
     // Make docker config settings optional. Project slug defaults to folder name where gulfile resides.
     docker_machine_name = "default"; // To be deprecated
     project_slug = process.cwd().split('/').pop();
-    if(config.docker){
-      project_slug = config.docker.project || process.cwd().split('/').pop();
-      docker_machine_name = config.docker.machine || "default";
+    if (config.docker) {
+        project_slug = config.docker.project || process.cwd().split('/').pop();
+        docker_machine_name = config.docker.machine || "default";
     }
 
     var environment = 'dev';
     if (argv.production) environment = 'production';
     if (argv.staging) environment = 'staging';
+
+    function _addHost(ip) {
+        ip = ip.trim() || '0.0.0.0';
+        var hosts = (argv.hosts || '/etc/hosts');
+        var newLine = ip.trim() + ' ' + project_slug + '.dev';
+
+        // TODO First check if string doesn't exist
+
+        fs.readFile('/etc/hosts', 'utf8',(err, data) => {
+            if (err) throw err;
+
+            if(data.indexOf(newLine) !== -1){
+              console.log("Project already in hosts file... Skipping!");
+            }else{
+              console.log(newLine+" doesn't exist in your hosts file. Adding...");
+              // Remove any previous ocurrences first
+              exec("sudo sed '/" + newLine + "/d' </etc/hosts", function(err, stdout, stderr) {
+                var command = 'sudo sh -c "echo \'' + stdout + newLine + '\' > /etc/hosts"';
+                exec(command, function(err, stdout, stderr) {
+                  if (err) {
+                    console.error('Unable to write to the hosts. Try running this command on terminal: ' + command);
+                  }
+                  console.log('Done! Ammended the following data to your host file: ' + newLine.trim());
+                  console.log('Make sure this domain name equals what you defined as VIRTUAL_HOST in docker-compose-dev.yml');
+                });
+              });
+            }
+        });
+    }
+
 
     gulp.task('build-reverse-proxy', function() {
         // Only run on development env
@@ -42,38 +73,16 @@ module.exports = function(gulp, plugins, config) {
         console.log(command);
 
         exec(command, function(err, stdout, stderr) {
-            if (err) {
-                throw stderr;
-            } else {
-                console.log(stdout);
-                // Get docker machine ip
-                console.log('You may need to enter your sudo password to edit your hosts file.');
-                exec('docker-machine ip ' + docker_machine_name, function(err, stdout, stderr) {
-                    if (environment === 'dev') {
-                        addHost(stdout);
-                    }
-                });
-            }
-        });
-    });
-
-    function addHost(ip) {
-        ip = ip.trim() || '0.0.0.0';
-        var hosts = (argv.hosts || '/etc/hosts');
-        var data = ip.trim() + ' ' + project_slug + '.dev';
-
-        // Remove any previous ocurrences first
-        exec("sudo sed '/" + data + "/d' </etc/hosts", function(err, stdout, stderr) {
-            var command = 'sudo sh -c "echo \'' + stdout + data + '\' > /etc/hosts"';
-            exec(command, function(err, stdout, stderr) {
-                if (err) {
-                    console.error('Unable to write to the hosts. Try running this command on terminal: ' + command);
+            if (err) throw stderr;
+            console.log(stdout);
+            // Get docker machine ip
+            exec('docker-machine ip ' + docker_machine_name, function(err, stdout, stderr) {
+                if (environment === 'dev') {
+                    _addHost(stdout);
                 }
-                console.log('Added the following data to your host file: ' + data.trim());
-                console.log('Make sure this domain name equals what you defined as VIRTUAL_HOST in docker-compose-dev.yml');
             });
         });
-    }
+    });
 
     gulp.task('status', function() {
         // Not working until I find way to pass in the custom yaml location
@@ -103,30 +112,11 @@ module.exports = function(gulp, plugins, config) {
 
         // Get docker machine ip
         exec('docker-machine ip ' + docker_machine_name, function(err, stdout, stderr) {
-            exec("echo 'You may need to enter your sudo password to edit your hosts file.'");
             if (environment === 'dev') {
-                addHost(stdout);
+                _addHost(stdout);
             }
         });
 
-        function addHost(ip) {
-            ip = ip.trim() || '0.0.0.0';
-            var hosts = (argv.hosts || '/etc/hosts');
-            var data = ip.trim() + ' ' + project_slug + '.dev';
-
-            // Remove any previous ocurrences first
-            // FIX: make sure the new IP matches too
-            exec("sudo sed '/" + data + "/d' </etc/hosts", function(err, stdout, stderr) {
-                var command = 'sudo sh -c "echo \'' + stdout + data + '\' > /etc/hosts"';
-                exec(command, function(err, stdout, stderr) {
-                    if (err) {
-                        console.error('Unable to write to the hosts. Try running this command on terminal: ' + command);
-                    }
-                    console.log('Added the following data to your host file: ' + data.trim());
-                    console.log('Make sure this domain name equals what you defined as VIRTUAL_HOST in docker-compose-dev.yml');
-                });
-            });
-        }
     });
 
     // ---------
