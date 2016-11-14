@@ -21,11 +21,8 @@ module.exports = function(gulp, plugins, config) {
         var hosts = (argv.hosts || '/etc/hosts');
         var newLine = ip.trim() + ' ' + project_slug + '.dev';
 
-        // TODO First check if string doesn't exist
-
         fs.readFile('/etc/hosts', 'utf8',(err, data) => {
             if (err) throw err;
-
             if(data.indexOf(newLine) !== -1){
               console.log("Project already in hosts file... Skipping!");
             }else{
