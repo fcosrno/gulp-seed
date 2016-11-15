@@ -81,7 +81,11 @@
     "docker": {
         "project": "example",
         "machine": "default",
-        "path_to_containers": "./containers"
+        "path_to_containers": "./containers",
+        "runAfter": ["add-hostname"]
+    },
+    "addHostname": {
+        "runAfter": [],
     },
     "backup": {
         "database": "docker-compose exec mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
