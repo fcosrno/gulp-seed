@@ -1,5 +1,8 @@
 {
     "tasksPath": "./tasks",
+    "addHostname": {
+      "runAfter":[]
+    },
     "inject": {
         "from": "./app/js/**/*.js",
         "to": "./app/index.html",
@@ -31,10 +34,10 @@
         ],
         "to": "./app/js",
         "filename": "script.js",
-        "runAfter": ["jade"]
+        "runAfter": ["pug"]
     },
-    "jade": {
-        "from": "./src/**/*.jade",
+    "pug": {
+        "from": "./src/**/*.pug",
         "to": "./app",
         "runAfter": ["less"]
     },
