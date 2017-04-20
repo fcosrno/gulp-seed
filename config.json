@@ -91,7 +91,7 @@
         "runAfter": [],
     },
     "backup": {
-        "database": "docker-compose exec mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
+        "database": "docker-compose exec -T mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
         "content": "tar -czvf ./.backup/`date +%m-%d-%Y`.uploads.tar.gz ./.data/uploads"
     },
     "browserSyncWatch": {
