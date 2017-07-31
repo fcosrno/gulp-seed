@@ -74,12 +74,11 @@
         "runAfter": []
     },
     "sass": {
-        "from": "./src/sass/styles.scss",
-        "to": "./dist",
+        "from": ["./themes/my-theme/sass/style.scss", "./themes/my-other-theme/sass/style.scss"],
+        "to": ["./themes/my-theme", "./themes/my-other-theme"],
         "options": {
             "outputStyle": "compressed"
-        },
-        "runAfter": ["images"]
+        }
     },
     "docker": {
         "project": "example",
