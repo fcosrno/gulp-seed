@@ -1,28 +1,30 @@
 module.exports = function(gulp, plugins, config) {
-    var argv = require('yargs').argv;
+  gulp.task('sass', config.sass.runAfter, function() {
 
-    var environment = 'development';
-    if (argv.production) environment = 'production';
-    if (argv.staging) environment = 'staging';
+    for (i = 0; i <= config.sass.from.length - 1; i++) {
+      toPump = [
+        gulp.src(config.sass.from[i]),
+        plugins.sass(config.sass.options).on('error', plugins.sass.logError),
+        plugins.cleanCss(),
+        // plugins.rev(), // Wordpress stack does not use inject
+        gulp.dest(config.sass.to[i])
+      ];
 
+      // Speed up development by skipping cleanCSS
+      var argv = require('yargs').argv;
+      var environment = 'development';
+      if (argv.production) environment = 'production';
+      if (argv.staging) environment = 'staging';
+      if (environment === 'development') {
+        toPump = [
+          gulp.src(config.sass.from[i]),
+          plugins.sass(config.sass.options).on('error', plugins.sass.logError),
+          gulp.dest(config.sass.to[i])
+        ];
+      }
+    }
 
-    gulp.task('sass', config.sass.runAfter, function() {
-        if (environment === 'development') {
+    return require('pump')(toPump);
 
-            for (i = 0; i <= config.sass.from.length - 1; i++) {
-                gulp.src(config.sass.from[i])
-                    .pipe(plugins.sass().on('error', plugins.sass.logError))
-                    .pipe(gulp.dest(config.sass.to[i]));
-            }
-            return;
-        } else {
-            for (i = 0; i <= config.sass.from.length - 1; i++) {
-                gulp.src(config.sass.from[i])
-                    .pipe(plugins.sass(config.sass.options).on('error', plugins.sass.logError))
-                    .pipe(plugins.cleanCss())
-                    .pipe(gulp.dest(config.sass.to[i]));
-            }
-            return;
-        }
-    });
+  });
 };
