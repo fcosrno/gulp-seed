@@ -1,113 +1,95 @@
 {
-    "tasksPath": "./tasks",
-    "addHostname": {
-      "runAfter":[]
+  "tasksPath": "./tasks",
+  "addHostname": {
+    "hosts": ["example.dev"],
+    "runAfter": []
+  },
+  "docker": {
+    "runAfter": ["add-hostname"]
+  },
+  "backup": {
+    "database": "/usr/local/bin/docker-compose exec -T mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$DB_PASSWORD $DB_NAME' 2>&1 | grep -v 'Using a password on the command line interface can be insecure.' | gzip > ./.backup/`date +%Y%m%d`.db.zip"
+  },
+  "inject": {
+    "from": "./app/js/**/*.js",
+    "to": "./app/index.html",
+    "folder": "./app",
+    "options": {
+      "relative": false,
+      "ignorePath": "dist"
     },
-    "inject": {
-        "from": "./app/js/**/*.js",
-        "to": "./app/index.html",
-        "folder": "./app",
-        "options": {
-            "relative": false,
-            "ignorePath": "dist"
-        },
-        "runAfter": ["javascript"]
+    "runAfter": ["javascript"]
+  },
+  "javascript": {
+    "from": [
+      "./node_modules/angular/angular.js",
+      "./node_modules/angular-route/angular-route.js",
+      "./node_modules/angular-filter/dist/angular-filter.js",
+      "./node_modules/lodash/index.js",
+      "./src/ui-bootstrap-custom-build/ui-bootstrap-custom-tpls-0.14.3.js",
+      "./src/app.js",
+      "./src/DataService.js",
+      "./src/**/*.js"
+    ],
+    "to": "./app/js",
+    "filename": "script.js",
+    "runAfter": ["pug"]
+  },
+  "pug": {
+    "from": "./js/spa/partials/*.pug",
+    "to": "./theme/partials",
+    "runAfter": ["sass"]
+  },
+  "copy": {
+    "from": ["./src/fonts/*", "./src/favicon.ico"],
+    "to": ["./dist/fonts", "./dist"],
+    "runAfter": ["images"]
+  },
+  "clean": {
+    "target": [
+      "./app/js/**/*.js",
+      "./app/**/*.html",
+      "./app/css/**/*.css"
+    ],
+    "runAfter": []
+  },
+  "images": {
+    "from": "./app/img/*",
+    "to": "./app/build",
+    "options": {
+      "progressive": true,
+      "interlaced": true,
+      "svgoPlugins": [{
+        "removeUnknownsAndDefaults": false
+      }, {
+        "cleanupIDs": false
+      }]
     },
-    "watch": {
-        "files": [
-            "./src/**/*.js",
-            "./src/**/*.jade",
-            "./src/style.less"
-        ],
-        "runAfter": []
-    },
-    "javascript": {
-        "from": [
-            "./node_modules/angular/angular.js",
-            "./node_modules/angular-route/angular-route.js",
-            "./node_modules/angular-filter/dist/angular-filter.js",
-            "./node_modules/lodash/index.js",
-            "./src/ui-bootstrap-custom-build/ui-bootstrap-custom-tpls-0.14.3.js",
-            "./src/app.js",
-            "./src/DataService.js",
-            "./src/**/*.js"
-        ],
-        "to": "./app/js",
-        "filename": "script.js",
-        "runAfter": ["pug"]
-    },
-    "pug": {
-        "from": "./src/**/*.pug",
-        "to": "./app",
-        "runAfter": ["less"]
-    },
-    "less": {
-        "from": "./src/style.less",
-        "to": "./app/css",
-        "runAfter": ["copy"]
-    },
-    "copy": {
-        "from": ["./src/fonts/*", "./src/favicon.ico"],
-        "to": ["./dist/fonts", "./dist"],
-        "runAfter": ["images"]
-    },
-    "clean": {
-        "target": [
-            "./app/js/**/*.js",
-            "./app/**/*.html",
-            "./app/css/**/*.css"
-        ],
-        "runAfter": []
-    },
-    "images": {
-        "from": "./app/img/*",
-        "to": "./app/build",
-        "options": {
-            "progressive": true,
-            "interlaced": true,
-            "svgoPlugins": [{
-                "removeUnknownsAndDefaults": false
-            }, {
-                "cleanupIDs": false
-            }]
-        },
-        "runAfter": []
-    },
-    "sass": {
-        "from": ["./themes/my-theme/sass/style.scss", "./themes/my-other-theme/sass/style.scss"],
-        "to": ["./themes/my-theme", "./themes/my-other-theme"],
-        "options": {
-            "outputStyle": "compressed"
-        }
-    },
-    "docker": {
-        "project": "example",
-        "machine": "default",
-        "path_to_containers": "./containers",
-        "runAfter": ["add-hostname"]
-    },
-    "addHostname": {
-        "runAfter": [],
-    },
-    "backup": {
-        "database": "docker-compose exec -T mysql sh -c 'exec mysqldump --single-transaction -hlocalhost -uroot -p$MYSQL_ROOT_PASSWORD $DB_NAME' | gzip > ./.backup/`date +%m-%d-%Y`.db.zip",
-        "content": "tar -czvf ./.backup/`date +%m-%d-%Y`.uploads.tar.gz ./.data/uploads"
-    },
-    "browserSyncWatch": {
-        "files": [
-            "./src/**/*.js",
-            "./src/**/*.jade",
-            "./src/**/*.scss"
-        ],
-        "runAfter": ["inject"]
-    },
-    "browserSync": {
-        "open": false,
-        "proxy": "http://example.dev",
-        "socket": {
-            "domain": "http://172.31.98.43:3000"
-        },
-        "browser": ["google-chrome"],
-        "notify": true
+    "runAfter": []
+  },
+  "sass": {
+    "from": ["./themes/my-theme/sass/style.scss", "./themes/my-other-theme/sass/style.scss"],
+    "to": ["./themes/my-theme", "./themes/my-other-theme"],
+    "options": {
+      "outputStyle": "compressed"
     }
+  },
+  "browserSyncWatch": {
+    "files": [
+      "./js/**/*.*",
+      "./sass/**/*.*",
+      "./theme/**/*.*",
+      "!./theme/**/style.css",
+      "!./theme/**/main.js",
+      "!./theme/partials/**/*.html"
+    ],
+    "runTask": ["javascript"],
+    "runAfter": []
+  },
+  "browserSync": {
+    "open": true,
+    "proxy": "example.dev",
+    "notify": true,
+    "runAfter": ["browser-sync-watch"]
+  }
 }
